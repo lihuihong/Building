@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.dao.CardThemeMapper">
+  <resultMap id="BaseResultMap" type="com.web.entity.CardTheme">
+    <id column="THEME_ID" jdbcType="INTEGER" property="themeId" />
+    <result column="INFO_ID" jdbcType="INTEGER" property="infoId" />
+    <result column="THEME_NAME" jdbcType="VARCHAR" property="themeName" />
+    <result column="THEME_TYPE" jdbcType="VARCHAR" property="themeType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    THEME_ID, INFO_ID, THEME_NAME, THEME_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from card_theme
+    where THEME_ID = #{themeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from card_theme
+    where THEME_ID = #{themeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.web.entity.CardTheme">
+    insert into card_theme (THEME_ID, INFO_ID, THEME_NAME, 
+      THEME_TYPE)
+    values (#{themeId,jdbcType=INTEGER}, #{infoId,jdbcType=INTEGER}, #{themeName,jdbcType=VARCHAR}, 
+      #{themeType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.entity.CardTheme">
+    insert into card_theme
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="themeId != null">
+        THEME_ID,
+      </if>
+      <if test="infoId != null">
+        INFO_ID,
+      </if>
+      <if test="themeName != null">
+        THEME_NAME,
+      </if>
+      <if test="themeType != null">
+        THEME_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="themeId != null">
+        #{themeId,jdbcType=INTEGER},
+      </if>
+      <if test="infoId != null">
+        #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="themeName != null">
+        #{themeName,jdbcType=VARCHAR},
+      </if>
+      <if test="themeType != null">
+        #{themeType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.entity.CardTheme">
+    update card_theme
+    <set>
+      <if test="infoId != null">
+        INFO_ID = #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="themeName != null">
+        THEME_NAME = #{themeName,jdbcType=VARCHAR},
+      </if>
+      <if test="themeType != null">
+        THEME_TYPE = #{themeType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where THEME_ID = #{themeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.entity.CardTheme">
+    update card_theme
+    set INFO_ID = #{infoId,jdbcType=INTEGER},
+      THEME_NAME = #{themeName,jdbcType=VARCHAR},
+      THEME_TYPE = #{themeType,jdbcType=VARCHAR}
+    where THEME_ID = #{themeId,jdbcType=INTEGER}
+  </update>
+</mapper>

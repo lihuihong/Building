@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.dao.CardUserMapper">
+    <resultMap id="User" type="com.web.entity.CardUser">
+        <id column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="USER_TYPE" jdbcType="INTEGER" property="userType"/>
+        <result column="USER_USERNAME" jdbcType="VARCHAR" property="userUsername"/>
+        <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword"/>
+        <result column="USER_TEL" jdbcType="VARCHAR" property="userTel"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        USER_ID, USER_TYPE, USER_USERNAME, USER_PASSWORD, USER_TEL
+    </sql>
+    <!--根据主键查询用户信息-->
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="User">
+        select
+        <include refid="Base_Column_List"/>
+        from card_user
+        where USER_ID = #{userId,jdbcType=INTEGER}
+    </select>
+    <!--根据主键删除用户信息-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from card_user
+        where USER_ID = #{userId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.web.entity.CardUser">
+        insert into card_user (USER_ID, USER_TYPE, USER_USERNAME, USER_PASSWORD, USER_TEL)
+        values (#{userId,jdbcType=INTEGER},
+                #{userType,jdbcType=INTEGER},
+                #{userUsername,jdbcType=VARCHAR},
+                #{userPassword,jdbcType=VARCHAR},
+                #{userTel,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.web.entity.CardUser">
+        insert into card_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="userType != null">
+                USER_TYPE,
+            </if>
+            <if test="userUsername != null">
+                USER_USERNAME,
+            </if>
+            <if test="userPassword != null">
+                USER_PASSWORD,
+            </if>
+            <if test="userTel != null">
+                USER_TEL,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userType != null">
+                #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="userUsername != null">
+                #{userUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null">
+                #{userPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="userTel != null">
+                #{userTel,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!-- 根据主键更新用户信息 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.web.entity.CardUser">
+        update card_user
+        <set>
+            <if test="userType != null">
+                USER_TYPE = #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="userUsername != null">
+                USER_USERNAME = #{userUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null">
+                USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="userTel != null">
+                USER_TEL = #{userTel,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where USER_ID = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.web.entity.CardUser">
+        update card_user
+        set USER_TYPE     = #{userType,jdbcType=INTEGER},
+            USER_USERNAME = #{userUsername,jdbcType=VARCHAR},
+            USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+            USER_TEL      = #{userTel,jdbcType=VARCHAR}
+        where USER_ID = #{userId,jdbcType=INTEGER}
+    </update>
+
+    <!-- 校验用户 -->
+    <select id="checkUser" resultMap="User">
+        SELECT
+        *
+        FROM
+        card_user u
+        WHERE
+        USER_USERNAME = #{userName}
+        <if test="passWord!=null and passWord!=''">AND USER_PASSWORD = #{passWord}</if>
+    </select>
+    <!-- 根据旧密码，判断查询用户 -->
+    <select id="selectByPassword" resultMap="User">
+        SELECT *
+        FROM card_user
+        WHERE USER_PASSWORD = #{password}
+          AND USER_ID = #{id}
+    </select>
+    <!--根据主键查询用户信息-->
+    <select id="selectById" resultMap="User">
+        SELECT *
+        FROM card_user u
+        WHERE u.USER_ID = #{id}
+    </select>
+</mapper>

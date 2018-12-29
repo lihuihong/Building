@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.dao.CardInfoMapper">
+  <resultMap id="BaseResultMap" type="com.web.entity.CardInfo">
+    <id column="INFO_ID" jdbcType="INTEGER" property="infoId" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="INFO_NAME" jdbcType="VARCHAR" property="infoName" />
+    <result column="INFO_PERSON" jdbcType="VARCHAR" property="infoPerson" />
+    <result column="INFO_TIME" jdbcType="TIMESTAMP" property="infoTime" />
+    <result column="INFO_ADDRESS" jdbcType="VARCHAR" property="infoAddress" />
+    <result column="INFO_NAME_ADDRESS" jdbcType="VARCHAR" property="infoNameAddress" />
+    <result column="INFO_TEL_ADDRESS" jdbcType="INTEGER" property="infoTelAddress" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    INFO_ID, USER_ID, INFO_NAME, INFO_PERSON, INFO_TIME, INFO_ADDRESS, INFO_NAME_ADDRESS, 
+    INFO_TEL_ADDRESS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from card_info
+    where INFO_ID = #{infoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from card_info
+    where INFO_ID = #{infoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.web.entity.CardInfo">
+    insert into card_info (INFO_ID, USER_ID, INFO_NAME, 
+      INFO_PERSON, INFO_TIME, INFO_ADDRESS, 
+      INFO_NAME_ADDRESS, INFO_TEL_ADDRESS)
+    values (#{infoId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{infoName,jdbcType=VARCHAR}, 
+      #{infoPerson,jdbcType=VARCHAR}, #{infoTime,jdbcType=TIMESTAMP}, #{infoAddress,jdbcType=VARCHAR}, 
+      #{infoNameAddress,jdbcType=VARCHAR}, #{infoTelAddress,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.entity.CardInfo">
+    insert into card_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="infoId != null">
+        INFO_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="infoName != null">
+        INFO_NAME,
+      </if>
+      <if test="infoPerson != null">
+        INFO_PERSON,
+      </if>
+      <if test="infoTime != null">
+        INFO_TIME,
+      </if>
+      <if test="infoAddress != null">
+        INFO_ADDRESS,
+      </if>
+      <if test="infoNameAddress != null">
+        INFO_NAME_ADDRESS,
+      </if>
+      <if test="infoTelAddress != null">
+        INFO_TEL_ADDRESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="infoId != null">
+        #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="infoName != null">
+        #{infoName,jdbcType=VARCHAR},
+      </if>
+      <if test="infoPerson != null">
+        #{infoPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="infoTime != null">
+        #{infoTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="infoAddress != null">
+        #{infoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="infoNameAddress != null">
+        #{infoNameAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="infoTelAddress != null">
+        #{infoTelAddress,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.entity.CardInfo">
+    update card_info
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="infoName != null">
+        INFO_NAME = #{infoName,jdbcType=VARCHAR},
+      </if>
+      <if test="infoPerson != null">
+        INFO_PERSON = #{infoPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="infoTime != null">
+        INFO_TIME = #{infoTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="infoAddress != null">
+        INFO_ADDRESS = #{infoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="infoNameAddress != null">
+        INFO_NAME_ADDRESS = #{infoNameAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="infoTelAddress != null">
+        INFO_TEL_ADDRESS = #{infoTelAddress,jdbcType=INTEGER},
+      </if>
+    </set>
+    where INFO_ID = #{infoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.entity.CardInfo">
+    update card_info
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      INFO_NAME = #{infoName,jdbcType=VARCHAR},
+      INFO_PERSON = #{infoPerson,jdbcType=VARCHAR},
+      INFO_TIME = #{infoTime,jdbcType=TIMESTAMP},
+      INFO_ADDRESS = #{infoAddress,jdbcType=VARCHAR},
+      INFO_NAME_ADDRESS = #{infoNameAddress,jdbcType=VARCHAR},
+      INFO_TEL_ADDRESS = #{infoTelAddress,jdbcType=INTEGER}
+    where INFO_ID = #{infoId,jdbcType=INTEGER}
+  </update>
+</mapper>
