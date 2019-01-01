@@ -38,7 +38,7 @@ public class CardInfoController {
         RspDataVo<CardInfo> cardThemeRspDataVo = new RspDataVo<CardInfo>();
         List<CardInfo> list = cardInfoService.selectByUserId(userId);
         for (CardInfo cardInfo : list) {
-            cardInfo.setInfoName(selectByInfoId(cardInfo.getInfoId()).getThemeName());
+            cardInfo.setInfoName(selectByInfoId(Integer.parseInt(cardInfo.getInfoName())).getThemeName());
             cardInfo.setUserName(cardUserService.selectById(cardInfo.getUserId()).getUserUsername());
         }
         cardThemeRspDataVo.setCount(list.size());
