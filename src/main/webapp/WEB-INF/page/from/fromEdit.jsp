@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="/resources/layui/css/layui.css">
     <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
     <script src="/resources/layui/layui.js"></script>
-<%--
-    <script type="text/javascript" src="/resources/layui/layui.all.js" charset="utf-8"></script>
---%>
+    <%--
+        <script type="text/javascript" src="/resources/layui/layui.all.js" charset="utf-8"></script>
+    --%>
 </head>
 <body>
-<form id="edit" >
+<form id="edit">
     <div style="padding: 20px; line-height: 24px;">
         <input type="hidden" name="infoId" value="${data.infoId}">
         <div class="layui-form-item">
@@ -60,14 +60,14 @@
             </div>
         </div>
     </div>
-    <div class="layui-form-item"
-         style="text-align: center; margin-top: 30px;">
-        <button class="layui-btn layui-btn-normal" >立即提交 </button>
-        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-    </div>
 </form>
+<div class="layui-form-item"
+     style="text-align: center; margin-top: 30px;">
+    <button class="layui-btn layui-btn-normal">立即提交</button>
+    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+</div>
 <script>
-    layui.use(['laydate','jquery'],function () {
+    layui.use(['laydate', 'jquery'], function () {
         var laydate = layui.laydate;
         //var form = layui.from;
         var $ = layui.jquery;
@@ -89,12 +89,13 @@
             elem: '#test1'
         });
         alert(parent.layui.table.data);
+
         function saveCardInfo() {
             $.ajax({
                 url: "/cardInfo/saveCardInfo.json",
                 type: "POST",
                 dataType: "json",
-                data:$("#edit").serialize(),
+                data: $("#edit").serialize(),
                 success: function (rtn) {
                     if (rtn.code == "000000") {
                         layer.msg("修改成功")
