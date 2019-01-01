@@ -78,19 +78,6 @@
             height: 40px;
             font-size: 20px;
         }
-        input[type="radio"] + label::before {
-            content: "\a0"; /*不换行空格*/
-            display: inline-block;
-            vertical-align: middle;
-            font-size: 18px;
-            width: 1em;
-            height: 1em;
-            margin-right: .4em;
-            border-radius: 50%;
-            border: 1px solid #01cd78;
-            text-indent: .15em;
-            line-height: 1;
-        }
     </style>
 </head>
 <body>
@@ -130,7 +117,7 @@
 
         <div class="layui-row">
 
-            <div class="layui-col-md9" style="padding: 50px">
+            <div class="layui-col-md8" style="padding: 50px 50px 50px 0px">
                 <div class="absro">
                     <img src="/resources/img/bg1.jpg" style="width: 100%" id="bg_img"/>
                     <div class="card_content">
@@ -144,7 +131,7 @@
 
             </div>
 
-            <div class="layui-col-md3 borde">
+            <div class="layui-col-md4 borde">
                 <form id="edit" class="layui-form">
                     <div style="padding: 20px; line-height: 24px;">
                         <input type="hidden" name="infoId" value="${data.infoId}">
