@@ -50,9 +50,6 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <button id="add" class="layui-btn" onclick="add()">
-                <i class="layui-icon">&#xe608;</i> 添加
-            </button>
             <table class="layui-hide" lay-filter='demo' id="content"></table>
 
             <script type="text/html" id="barDemo">
@@ -62,12 +59,12 @@
                 &nbsp;
                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">驳回</a>
             </script>
-            <script type="text/html" id="forUserType">
-                {{#if (d.commentType == '0') { }}
+            <script type="text/html" id="forInfoType">
+                {{#if (d.commentType == 0) { }}
                 <span>审核中</span>
-                {{# }else if(d.commentType == '1'){ }}
+                {{# }else if(d.commentType == 1){ }}
                 <span>通过审核</span>
-                {{# }else if(d.commentType == '2'){ }}
+                {{# }else if(d.commentType == 2){ }}
                 <span>审核失败</span>
                 {{# } }}
             </script>
@@ -173,49 +170,56 @@
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'detail') {
-                layer.open({
-                    type: 2
-                    , title: '用户请柬信息查询'
-                    , area: ['500px', '500px']
-                    , closeBtn: false
-                    , btn: '确定'
-                    , btnAlign: 'c'
-                    , content: "/web/fromInfo.action?id=" + data.infoId
-                });
-            } else if (layEvent === 'del') {
-                layer.alert('将要删除该行数据,确定吗?', {
-                    closeBtn: 0    // 是否显示关闭按钮
-                    , anim: 6
-                    , btn: ['确定', '取消'] //按钮
-                    , yes: function (index) {
-                        var getData = new Object();
-                        $.ajax({
-                            url: '/cardInfo/deleteCardInfo.json',
-                            type: 'post',
-                            data: {
-                                'InfoId':data.infoId
-                            },
-                            dataType: 'json',
-                            success: function () {
-                                layer.msg("删除成功")
-                                location.reload(true);
-                            },
-                            error: function () {
-                                alert("删除错误,请重新编写!");
-                            }
-                        });
-                        layer.close(index);
+                //用户评论审核通过
+                $.ajax({
+                    url: '/cardComment/pass.json',
+                    type: 'post',
+                    data: {
+                        'commentId':data.commentId,
+                        'commentType':'1'
+                    },
+                    dataType: 'json',
+                    success: function () {
+                        layer.msg("审核通过")
+                        setTimeout(function () {
+                            location.reload(true);
+                        },2000)
+                    },
+                    error: function () {
+                        alert("审核通过失败");
                     }
                 });
+                layer.close(index);
+            } else if (layEvent === 'del') {
+                //用户评论审核通过
+                $.ajax({
+                    url: '/cardComment/pass.json',
+                    type: 'post',
+                    data: {
+                        'commentId':data.commentId,
+                        'commentType':'2'
+                    },
+                    dataType: 'json',
+                    success: function () {
+                        layer.msg("审核驳回")
+                        setTimeout(function () {
+                            location.reload(true);
+                        },2000)
+                    },
+                    error: function () {
+                        alert("审核驳回失败");
+                    }
+                });
+                layer.close(index);
             } else if (layEvent === 'edit') {
                 layer.open({
                     type: 2
-                    , title: '更改用户数据'
+                    , title: '用户评论内容修改'
                     , area: ['500px', '500px']
                     , btn: ['取消'] //按钮
                     , closeBtn: false
                     , btnAlign: 'c'
-                    , content: '/web/fromEdit.action?id='+data.infoId
+                    , content: "/web/fromComment.action?commentId=" + data.commentId
                 });
             }
         });

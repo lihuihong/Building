@@ -32,5 +32,18 @@ public class CardCommentService {
         return cardCommentMapper.list();
     }
 
+    /**
+     * 通过主键修改评论信息
+     * @param cardComment
+     * @return
+     */
+    public int updateByPrimaryKeySelective(CardComment cardComment){
+        return cardCommentMapper.updateByPrimaryKeySelective(cardComment);
+    }
+
+    public CardComment selectByPrimaryKey(int cardCommentId){
+        return cardCommentMapper.selectByPrimaryKey(cardCommentId);
+    }
+
 
 }

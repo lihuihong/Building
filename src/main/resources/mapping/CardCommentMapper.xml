@@ -76,10 +76,10 @@
             <if test="infoId != null">
                 INFO_ID = #{infoId,jdbcType=INTEGER},
             </if>
-            <if test="infoId != null">
+            <if test="userId != null">
                 USER_ID = #{userId,jdbcType=INTEGER},
             </if>
-            <if test="infoId != null">
+            <if test="commentType != null">
                 COMMENT_TYPE = #{commentType,jdbcType=VARCHAR},
             </if>
         </set>
