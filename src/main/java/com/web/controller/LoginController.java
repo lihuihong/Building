@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
-@Controller("/user")
+/**
+ * 用户操作
+ */
+@Controller
+@RequestMapping("/user")
 public class LoginController {
 
     @Autowired
@@ -23,7 +27,7 @@ public class LoginController {
     public String to_login(HttpServletRequest request){
         request.setAttribute("select","login");
         request.setAttribute("refererUrl",request.getHeader("Referer"));
-        return "/login";
+        return "login";
     }
     /**
      * 注册界面跳转
@@ -33,6 +37,15 @@ public class LoginController {
         request.setAttribute("select","register");
         request.setAttribute("refererUrl",request.getHeader("Referer"));
         return "/register";
+    }
+    /**
+     * 主页面跳转
+     */
+    @RequestMapping("/index.action")
+    public String index(HttpServletRequest request){
+        request.setAttribute("select","register");
+        request.setAttribute("refererUrl",request.getHeader("Referer"));
+        return "/index";
     }
     /**
      * 用户登录

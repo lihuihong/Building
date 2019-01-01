@@ -37,7 +37,7 @@
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/forum" userId="root" password="root">
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/card_db" userId="root" password="root">
         </jdbcConnection>
         <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
             <!--
@@ -113,13 +113,16 @@
                 注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
              -->
         <!-- 要生成哪些表 -->
-        <table tableName="user" domainObjectName="User" enableCountByExample="false"
+        <table tableName="card_user" domainObjectName="CardUser" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
-        <table tableName="type" domainObjectName="Type" enableCountByExample="false"
+        <table tableName="card_info" domainObjectName="CardInfo" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
-        <table tableName="acticle" domainObjectName="Acticle" enableCountByExample="false"
+        <table tableName="card_theme" domainObjectName="CardTheme" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+        <table tableName="card_comment" domainObjectName="CardComment" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
 

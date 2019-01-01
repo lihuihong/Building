@@ -7,6 +7,7 @@ public class CardInfo implements Serializable {
     private Integer infoId;
 
     private Integer userId;
+    private String userName;
 
     private String infoName;
 
@@ -84,6 +85,14 @@ public class CardInfo implements Serializable {
 
     public void setInfoTelAddress(Integer infoTelAddress) {
         this.infoTelAddress = infoTelAddress;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override

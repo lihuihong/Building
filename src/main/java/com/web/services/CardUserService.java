@@ -75,9 +75,13 @@ public class CardUserService {
         String userTel = request.getParameter("userTel");
         CardUser cardUser = new CardUser();
         cardUser.setUserUsername(username);
-        cardUser.setUserPassword(password);
-        cardUser.setUserTel(userTel);
-        cardUserMapper.insert(cardUser);
+        cardUser.setUserPassword(MD5.md5(password));
+        if (userTel != null){
+            cardUser.setUserTel(userTel);
+        }
+        //设置用户类型（0，普通用户 1，管理员用户）
+        cardUser.setUserType(0);
+        cardUserMapper.insertSelective(cardUser);
         // 对用户信息进行加密，用于cookie存储
         // 用户的登录名和密码
         String userToken = Jiami.getInstance().encrypt(username) + "&&" + Jiami.getInstance().encrypt(password);

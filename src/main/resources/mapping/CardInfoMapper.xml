@@ -15,16 +15,19 @@
     INFO_ID, USER_ID, INFO_NAME, INFO_PERSON, INFO_TIME, INFO_ADDRESS, INFO_NAME_ADDRESS, 
     INFO_TEL_ADDRESS
   </sql>
+    <!--根据请柬表id查询请柬信息-->
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from card_info
     where INFO_ID = #{infoId,jdbcType=INTEGER}
   </select>
+    <!--根据请柬表id删除请柬信息-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from card_info
     where INFO_ID = #{infoId,jdbcType=INTEGER}
   </delete>
+    <!--插入请柬信息-->
   <insert id="insert" parameterType="com.web.entity.CardInfo">
     insert into card_info (INFO_ID, USER_ID, INFO_NAME, 
       INFO_PERSON, INFO_TIME, INFO_ADDRESS, 
@@ -33,6 +36,7 @@
       #{infoPerson,jdbcType=VARCHAR}, #{infoTime,jdbcType=TIMESTAMP}, #{infoAddress,jdbcType=VARCHAR}, 
       #{infoNameAddress,jdbcType=VARCHAR}, #{infoTelAddress,jdbcType=INTEGER})
   </insert>
+    <!--选择性插入请柬信息-->
   <insert id="insertSelective" parameterType="com.web.entity.CardInfo">
     insert into card_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -88,6 +92,7 @@
       </if>
     </trim>
   </insert>
+    <!--根据请柬表id更新请柬信息-->
   <update id="updateByPrimaryKeySelective" parameterType="com.web.entity.CardInfo">
     update card_info
     <set>
@@ -126,4 +131,24 @@
       INFO_TEL_ADDRESS = #{infoTelAddress,jdbcType=INTEGER}
     where INFO_ID = #{infoId,jdbcType=INTEGER}
   </update>
+    <!--查询请柬信息-->
+    <select id="list" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from card_info
+    </select>
+    <!--根据用户id查询请柬信息-->
+    <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from card_info
+        where USER_ID = #{userId,jdbcType=INTEGER}
+    </select>
+    <!--根据请柬主题id查询请柬信息-->
+    <select id="selectByInfoId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from card_info
+        where INFO_ID = #{InfoId,jdbcType=INTEGER}
+    </select>
 </mapper>

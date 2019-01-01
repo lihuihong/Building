@@ -1,0 +1,59 @@
+body {
+	padding-top: 2em;
+}
+
+.cursorCss {
+	cursor: pointer;
+}
+
+.container .top {
+	font-size: 2em;
+	margin-bottom: 1em;
+}
+
+.layui-input-block {
+	margin-left: 50% !important;
+}
+
+.line img {
+	
+}
+
+.circular {
+	background-color: #808080;
+	color: white;
+	line-height: 100px;
+	width: 70%;
+	height: 100px;
+	text-align: center;
+	border-radius: 60%;
+	border: 1px solid black;
+}
+
+.backgroundcolor {
+	background-color: #259C55;
+	color: #FFFFFF;
+}
+
+.line {
+	line-height: 100px;
+}
+
+#table {
+	margin-top: 2em !important;
+}
+
+table {
+	margin-left: 17%;
+	width: 80%;
+	border-spacing: 2em 2em;
+}
+
+table tr td {
+	text-align: left;
+}
+
+table tr {
+	height: 4em;
+	margin-left: 5em;
+}

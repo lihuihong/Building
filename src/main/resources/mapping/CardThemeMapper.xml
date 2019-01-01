@@ -16,6 +16,13 @@
     from card_theme
     where THEME_ID = #{themeId,jdbcType=INTEGER}
   </select>
+    <!--根据请柬id查询请柬主题-->
+    <select id="selectByInfoId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from card_theme
+    where THEME_ID = #{cardInfoId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from card_theme
     where THEME_ID = #{themeId,jdbcType=INTEGER}
@@ -72,6 +79,7 @@
     </set>
     where THEME_ID = #{themeId,jdbcType=INTEGER}
   </update>
+    <!--根据请柬主题id修改请柬主题-->
   <update id="updateByPrimaryKey" parameterType="com.web.entity.CardTheme">
     update card_theme
     set INFO_ID = #{infoId,jdbcType=INTEGER},
