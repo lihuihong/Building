@@ -1,71 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.web.dao.CardCommentMapper">
-  <resultMap id="BaseResultMap" type="com.web.entity.CardComment">
-    <id column="COMMENT_ID" jdbcType="INTEGER" property="commentId" />
-    <result column="COMMENT_CONTENT" jdbcType="VARCHAR" property="commentContent" />
-    <result column="INFO_ID" jdbcType="INTEGER" property="infoId" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    COMMENT_ID, COMMENT_CONTENT, INFO_ID
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from card_comment
-    where COMMENT_ID = #{commentId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from card_comment
-    where COMMENT_ID = #{commentId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.web.entity.CardComment">
-    insert into card_comment (COMMENT_ID, COMMENT_CONTENT, INFO_ID
-      )
-    values (#{commentId,jdbcType=INTEGER}, #{commentContent,jdbcType=VARCHAR}, #{infoId,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.web.entity.CardComment">
-    insert into card_comment
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="commentId != null">
-        COMMENT_ID,
-      </if>
-      <if test="commentContent != null">
-        COMMENT_CONTENT,
-      </if>
-      <if test="infoId != null">
-        INFO_ID,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="commentId != null">
-        #{commentId,jdbcType=INTEGER},
-      </if>
-      <if test="commentContent != null">
-        #{commentContent,jdbcType=VARCHAR},
-      </if>
-      <if test="infoId != null">
-        #{infoId,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.web.entity.CardComment">
-    update card_comment
-    <set>
-      <if test="commentContent != null">
-        COMMENT_CONTENT = #{commentContent,jdbcType=VARCHAR},
-      </if>
-      <if test="infoId != null">
-        INFO_ID = #{infoId,jdbcType=INTEGER},
-      </if>
-    </set>
-    where COMMENT_ID = #{commentId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.web.entity.CardComment">
-    update card_comment
-    set COMMENT_CONTENT = #{commentContent,jdbcType=VARCHAR},
-      INFO_ID = #{infoId,jdbcType=INTEGER}
-    where COMMENT_ID = #{commentId,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.web.entity.CardComment">
+        <id column="COMMENT_ID" jdbcType="INTEGER" property="commentId"/>
+        <result column="COMMENT_CONTENT" jdbcType="VARCHAR" property="commentContent"/>
+        <result column="INFO_ID" jdbcType="INTEGER" property="infoId"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="COMMENT_TYPE" jdbcType="VARCHAR" property="commentType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        COMMENT_ID, COMMENT_CONTENT, INFO_ID, USER_ID, COMMENT_TYPE
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from card_comment
+        where COMMENT_ID = #{commentId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from card_comment
+        where COMMENT_ID = #{commentId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.web.entity.CardComment">
+        insert into card_comment (COMMENT_ID, COMMENT_CONTENT, INFO_ID, USER_ID, COMMENT_TYPE)
+        values (#{commentId,jdbcType=INTEGER},
+                #{commentContent,jdbcType=VARCHAR},
+                #{infoId,jdbcType=INTEGER},
+                #{userId,jdbcType=INTEGER},
+                #{commentType,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.web.entity.CardComment">
+        insert into card_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="commentId != null">
+                COMMENT_ID,
+            </if>
+            <if test="commentContent != null">
+                COMMENT_CONTENT,
+            </if>
+            <if test="infoId != null">
+                INFO_ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="commentType != null">
+                COMMENT_TYPE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="commentId != null">
+                #{commentId,jdbcType=INTEGER},
+            </if>
+            <if test="commentContent != null">
+                #{commentContent,jdbcType=VARCHAR},
+            </if>
+            <if test="infoId != null">
+                #{infoId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="commentType != null">
+                #{commentType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.web.entity.CardComment">
+        update card_comment
+        <set>
+            <if test="commentContent != null">
+                COMMENT_CONTENT = #{commentContent,jdbcType=VARCHAR},
+            </if>
+            <if test="infoId != null">
+                INFO_ID = #{infoId,jdbcType=INTEGER},
+            </if>
+            <if test="infoId != null">
+                USER_ID = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="infoId != null">
+                COMMENT_TYPE = #{commentType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where COMMENT_ID = #{commentId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.web.entity.CardComment">
+        update card_comment
+        set COMMENT_CONTENT = #{commentContent,jdbcType=VARCHAR},
+            INFO_ID         = #{infoId,jdbcType=INTEGER}
+                ,
+            USER_ID         = #{userId,jdbcType=INTEGER}
+                ,
+            COMMENT_TYPE         = #{commentType,jdbcType=VARCHAR}
+        where COMMENT_ID = #{commentId,jdbcType=INTEGER}
+    </update>
+
+    <!--查询全部评论-->
+    <select id="list" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from card_comment
+    </select>
 </mapper>

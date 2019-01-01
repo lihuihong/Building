@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -56,5 +57,36 @@ public class WebController {
         map.put("cardTheme",cardThemes);
         map.put("cardUsers",cardUsers);
         return "/from/fromSend";
+    }
+
+    //通过用户id获取用户信息(修改)
+    @RequestMapping("/fromUserInfoEdit.action")
+    public String cardUserInfo(ModelMap map, HttpServletRequest request){
+        //获取
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        CardUser cardUser = cardUserService.selectById(userId);
+        map.put("cardUser",cardUser);
+        return "/from/fromUserInfoEdit";
+    }
+
+    //用户管理跳转
+    @RequestMapping("/userInfo.action")
+    public String userInfo(){
+        return "/userInfo";
+    }
+    //请柬管理跳转
+    @RequestMapping("/index.action")
+    public String index(){
+        return "/index";
+    }
+    //请柬主题管理跳转
+    @RequestMapping("/cardTheme.action")
+    public String cardTheme(){
+        return "/cardTheme";
+    }
+    //评论管理跳转
+    @RequestMapping("/cardComment.action")
+    public String cardComment(){
+        return "/cardComment";
     }
 }

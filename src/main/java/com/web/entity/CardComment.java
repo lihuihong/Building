@@ -6,8 +6,12 @@ public class CardComment implements Serializable {
     private Integer commentId;
 
     private String commentContent;
+    private String commentType;
 
     private Integer infoId;
+    private String infoName;
+    private Integer userId;
+    private String userName;
 
     private static final long serialVersionUID = 1L;
 
@@ -33,6 +37,38 @@ public class CardComment implements Serializable {
 
     public void setInfoId(Integer infoId) {
         this.infoId = infoId;
+    }
+
+    public String getCommentType() {
+        return commentType;
+    }
+
+    public void setCommentType(String commentType) {
+        this.commentType = commentType;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getInfoName() {
+        return infoName;
+    }
+
+    public void setInfoName(String infoName) {
+        this.infoName = infoName;
     }
 
     @Override

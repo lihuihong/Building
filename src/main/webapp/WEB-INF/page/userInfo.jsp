@@ -50,17 +50,19 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <button id="add" class="layui-btn" onclick="add()">
-                <i class="layui-icon">&#xe608;</i> 添加
-            </button>
             <table class="layui-hide" lay-filter='demo' id="content"></table>
 
             <script type="text/html" id="barDemo">
-                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-                &nbsp;
                 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                 &nbsp;
                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </script>
+            <script type="text/html" id="forUserType">
+                {{#if (d.userType == '0') { }}
+                <span>普通用户</span>
+                {{# }else if(d.userType == '1'){ }}
+                <span>管理员</span>
+                {{# } }}
             </script>
             <!--时间格式化-->
             <script src="/resources/js/date-format.js" type="text/javascript" charset="utf-8"></script>
@@ -78,7 +80,7 @@
         //方法级渲染
         table.render({
             elem: '#content'
-            , url: '/cardInfo/list.action'
+            , url: '/cardUserInfo/index.action'
             , id: 'contentReload'
             , page: true
             , height: 600
@@ -86,15 +88,9 @@
             , limits: [6, 8, 10, 12]
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'userName', title: '用户姓名', align: 'center'}
-                , {field: 'infoName', title: '请柬主题', align: 'center'}
-                , {field: 'infoPerson', title: '请柬致辞内容', align: 'center'}
-                , {
-                    field: 'infoTime',
-                    title: '请柬时间',
-                    align: 'center',
-                    templet: '<div>{{ Format(d.infoTime,"yyyy-MM-dd")}}</div>'
-                }
+                , {field: 'userUsername', title: '用户姓名', align: 'center'}
+                , {field: 'userTel', title: '用户电话', align: 'center'}
+                , {field: 'userType', title: '用户类型', align: 'center', toolbar: '#forUserType'}
                 , {field: 'barDemo', align: 'center', title: '常用操作', toolbar: '#barDemo'}
             ]]
         });
@@ -163,22 +159,12 @@
             , table = layui.table      //表格
             , laydate = layui.laydate;
         table.render();
-//监听工具条
+        //监听工具条
         table.on('tool(demo)', function (obj) {
-//注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
-                ,layEvent = obj.event; //获得 lay-event 对应的值
-            if (layEvent === 'detail') {
-                layer.open({
-                    type: 2
-                    , title: '用户请柬信息查询'
-                    , area: ['500px', '500px']
-                    , closeBtn: false
-                    , btn: '确定'
-                    , btnAlign: 'c'
-                    , content: "/web/fromInfo.action?id=" + data.infoId
-                });
-            } else if (layEvent === 'del') {
+                , layEvent = obj.event; //获得 lay-event 对应的值
+            if (layEvent === 'del') {
                 layer.alert('将要删除该行数据,确定吗?', {
                     closeBtn: 0    // 是否显示关闭按钮
                     , anim: 6
@@ -186,10 +172,10 @@
                     , yes: function (index) {
                         var getData = new Object();
                         $.ajax({
-                            url: '/cardInfo/deleteCardInfo.json',
+                            url: '/cardUserInfo/userDelete.json',
                             type: 'post',
                             data: {
-                                'InfoId':data.infoId
+                                'userId': data.userId
                             },
                             dataType: 'json',
                             success: function () {
@@ -206,16 +192,17 @@
             } else if (layEvent === 'edit') {
                 layer.open({
                     type: 2
-                    , title: '更改用户请柬数据'
+                    , title: '更改用户信息'
                     , area: ['500px', '500px']
                     , btn: ['取消'] //按钮
                     , closeBtn: false
                     , btnAlign: 'c'
-                    , content: '/web/fromEdit.action?id='+data.infoId
+                    , content: '/web/fromUserInfoEdit.action?userId=' + data.userId
                 });
             }
         });
     });
+
     // "/web/fromEdit.action?id=" + data.infoId
     function add() {
         layer.open({

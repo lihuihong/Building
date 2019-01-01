@@ -56,11 +56,20 @@
             <table class="layui-hide" lay-filter='demo' id="content"></table>
 
             <script type="text/html" id="barDemo">
-                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-                &nbsp;
                 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                 &nbsp;
-                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">通过</a>
+                &nbsp;
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">驳回</a>
+            </script>
+            <script type="text/html" id="forUserType">
+                {{#if (d.commentType == '0') { }}
+                <span>审核中</span>
+                {{# }else if(d.commentType == '1'){ }}
+                <span>通过审核</span>
+                {{# }else if(d.commentType == '2'){ }}
+                <span>审核失败</span>
+                {{# } }}
             </script>
             <!--时间格式化-->
             <script src="/resources/js/date-format.js" type="text/javascript" charset="utf-8"></script>
@@ -78,7 +87,7 @@
         //方法级渲染
         table.render({
             elem: '#content'
-            , url: '/cardInfo/list.action'
+            , url: '/cardComment/index.action'
             , id: 'contentReload'
             , page: true
             , height: 600
@@ -86,15 +95,10 @@
             , limits: [6, 8, 10, 12]
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'userName', title: '用户姓名', align: 'center'}
-                , {field: 'infoName', title: '请柬主题', align: 'center'}
-                , {field: 'infoPerson', title: '请柬致辞内容', align: 'center'}
-                , {
-                    field: 'infoTime',
-                    title: '请柬时间',
-                    align: 'center',
-                    templet: '<div>{{ Format(d.infoTime,"yyyy-MM-dd")}}</div>'
-                }
+                , {field: 'commentContent', title: '评论内容', align: 'center'}
+                , {field: 'userName', title: '评论用户', align: 'center'}
+                , {field: 'infoName', title: '所属请柬名称', align: 'center'}
+                , {field: 'commentType', title: '审核状态', align: 'center', toolbar: '#forInfoType'}
                 , {field: 'barDemo', align: 'center', title: '常用操作', toolbar: '#barDemo'}
             ]]
         });
@@ -206,7 +210,7 @@
             } else if (layEvent === 'edit') {
                 layer.open({
                     type: 2
-                    , title: '更改用户请柬数据'
+                    , title: '更改用户数据'
                     , area: ['500px', '500px']
                     , btn: ['取消'] //按钮
                     , closeBtn: false

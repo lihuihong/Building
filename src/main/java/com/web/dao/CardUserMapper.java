@@ -31,7 +31,7 @@ public interface CardUserMapper {
     CardUser selectByPrimaryKey(Integer userId);
 
     /**
-     * 根据主键更新用户信息
+     * 根据用户id修改用户信息
      * @param record
      * @return
      */

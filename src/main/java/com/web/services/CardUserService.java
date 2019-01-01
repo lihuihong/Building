@@ -154,7 +154,25 @@ public class CardUserService {
      * @return
      */
     public List<CardUser> selectAllCardUser(){
-        return cardUserMapper.selectAllCardUser();
+        List<CardUser> cardUsers = cardUserMapper.selectAllCardUser();
+        return cardUsers;
+    }
+
+    /**
+     * 根据用户id修改用户信息
+     * @return
+     */
+    public int updateByPrimaryKeySelective(CardUser cardUser){
+        return cardUserMapper.updateByPrimaryKeySelective(cardUser);
+    }
+
+    /**
+     * 根据主键删除用户
+     * @param userId
+     * @return
+     */
+    public int deleteByPrimaryKey(Integer userId){
+        return cardUserMapper.deleteByPrimaryKey(userId);
     }
 
 }

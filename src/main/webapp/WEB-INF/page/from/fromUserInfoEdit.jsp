@@ -21,40 +21,19 @@
 <body>
 <form id="edit">
     <div style="padding: 20px; line-height: 24px;">
-        <input type="hidden" name="infoId" value="0">
+        <input type="hidden" name="userId" value="${cardUser.userId}">
         <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px;">请柬致辞内容</label>
+            <label class="layui-form-label" style="width: 150px;">用户名</label>
             <div class="layui-input-inline">
-                <input type="text" name="infoPerson" required lay-verify="required" class="layui-input"
-                       value="${data.infoPerson}">
+                <input type="text" name="userUsername" required lay-verify="required" class="layui-input"
+                       value="${cardUser.userUsername}">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px">请柬时间</label>
+            <label class="layui-form-label" style="width: 150px">用户电话</label>
             <div class="layui-input-inline">
-                <input type="text" name="infoTime1" required lay-verify="required" class="layui-input" id="test1"
-                       placeholder="yyyy-MM-dd">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px">请柬地址</label>
-            <div class="layui-input-inline">
-                <input type="text" name="infoAddress" required lay-verify="required" class="layui-input"
-                       value="${data.infoAddress}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px">请柬地址名称</label>
-            <div class="layui-input-inline">
-                <input type="text" name="infoNameAddress" required lay-verify="required" class="layui-input"
-                       value="${data.infoNameAddress}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px">请柬地址电话</label>
-            <div class="layui-input-inline">
-                <input type="text" name="infoTelAddress" required lay-verify="required" class="layui-input"
-                       value="${data.infoTelAddress}">
+                <input type="text" name="userTel" required lay-verify="required" class="layui-input"
+                       value="${cardUser.userTel}">
             </div>
         </div>
     </div>
@@ -68,7 +47,7 @@
     function saveCardInfo() {
         var data= $("#edit").serialize();
         $.ajax({
-            url: "/cardInfo/saveCardInfo.json",
+            url: "/cardUserInfo/userEdit.json",
             type: "POST",
             dataType: "json",
             data: data,

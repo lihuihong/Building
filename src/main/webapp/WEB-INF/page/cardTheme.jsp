@@ -39,10 +39,10 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item"><a href="/web/index.action">请柬管理</a></li>
-                <li class="layui-nav-item"><a href="/web/userInfo.action">用户管理</a></li>
-                <li class="layui-nav-item"><a href="/web/cardTheme.action">请柬主题管理</a></li>
-                <li class="layui-nav-item"><a href="/web/cardComment.action">评论管理</a></li>
+                <li class="layui-nav-item"><a href="/web/index.action">请柬管理cardTheme</a></li>
+                <li class="layui-nav-item"><a href="/web/userInfo.action">用户管理cardTheme</a></li>
+                <li class="layui-nav-item"><a href="/web/cardTheme.action">请柬主题管理cardTheme</a></li>
+                <li class="layui-nav-item"><a href="/web/cardComment.action">评论管理cardTheme</a></li>
             </ul>
         </div>
     </div>
@@ -206,7 +206,7 @@
             } else if (layEvent === 'edit') {
                 layer.open({
                     type: 2
-                    , title: '更改用户请柬数据'
+                    , title: '更改用户数据'
                     , area: ['500px', '500px']
                     , btn: ['取消'] //按钮
                     , closeBtn: false

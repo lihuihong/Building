@@ -2,6 +2,8 @@ package com.web.dao;
 
 import com.web.entity.CardComment;
 
+import java.util.List;
+
 public interface CardCommentMapper {
     int deleteByPrimaryKey(Integer commentId);
 
@@ -14,4 +16,6 @@ public interface CardCommentMapper {
     int updateByPrimaryKeySelective(CardComment record);
 
     int updateByPrimaryKey(CardComment record);
+
+    List<CardComment> list();
 }
