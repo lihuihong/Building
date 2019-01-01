@@ -144,6 +144,7 @@
         from card_info
         where USER_ID = #{userId,jdbcType=INTEGER}
     </select>
+
     <!--根据请柬主题id查询请柬信息-->
     <select id="selectByInfoId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select

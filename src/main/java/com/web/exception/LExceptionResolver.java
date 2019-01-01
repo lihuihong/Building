@@ -1,7 +1,6 @@
 package com.web.exception;
 
-import com.google.gson.Gson;
-import com.web.exception.LException;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -39,11 +38,11 @@ public class LExceptionResolver implements HandlerExceptionResolver {
             Map<String, Object> responseMap = new HashMap<String, Object>();
             responseMap.put("code", "111111");
             responseMap.put("message", message);
-            String json = new Gson().toJson(responseMap);
+            //String json = new Gson().toJson(responseMap);
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json; charset=utf-8");
             try {
-                response.getWriter().write(json);
+                //response.getWriter().write(json);
                 response.getWriter().flush();
             } catch (IOException e1) {
                 e1.printStackTrace();
