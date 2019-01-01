@@ -47,10 +47,30 @@ public class CardInfoController {
     }
 
     /**
+     * 查询该用户所有请柬
+     *
+     * @return
+     */
+    @RequestMapping("/list.action")
+    @ResponseBody
+    public RspDataVo<CardInfo> list(HttpServletRequest request) {
+        RspDataVo<CardInfo> cardThemeRspDataVo = new RspDataVo<CardInfo>();
+        List<CardInfo> list = cardInfoService.list();
+        for (CardInfo cardInfo : list) {
+            cardInfo.setInfoName(selectByInfoId(Integer.parseInt(cardInfo.getInfoName())).getThemeName());
+            cardInfo.setUserName(cardUserService.selectById(cardInfo.getUserId()).getUserUsername());
+        }
+        cardThemeRspDataVo.setCount(list.size());
+        cardThemeRspDataVo.setData(list);
+        return cardThemeRspDataVo;
+    }
+
+    /**
      * 保存请柬
      * @param cardInfo
      */
     @RequestMapping("/saveCardInfo.json")
+    @ResponseBody
     public Result saveCardInfo(CardInfo cardInfo){
         cardInfoService.saveCardInfo(cardInfo);
         return Result.success();
@@ -62,6 +82,13 @@ public class CardInfoController {
      */
     public CardTheme selectByInfoId(int InfoId){
         return cardThemeService.selectByInfoId(InfoId);
+    }
+
+    @RequestMapping("/deleteCardInfo.json")
+    @ResponseBody
+    public Result deleteCardInfo(int InfoId){
+         cardInfoService.deleteByPrimaryKey(InfoId);
+        return Result.success();
     }
 
 }

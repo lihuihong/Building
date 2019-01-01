@@ -2,6 +2,8 @@ package com.web.dao;
 
 import com.web.entity.CardTheme;
 
+import java.util.List;
+
 public interface CardThemeMapper {
     /**
      * 根据请柬主题id删除请柬主题
@@ -26,4 +28,10 @@ public interface CardThemeMapper {
      * @return
      */
     CardTheme selectByInfoId(int cardInfoId);
+
+    /**
+     * 查询所有请柬主题
+     * @return
+     */
+    List<CardTheme> selectAllCardInfo();
 }

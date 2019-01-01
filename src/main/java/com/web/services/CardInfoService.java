@@ -54,7 +54,7 @@ public class CardInfoService {
      */
     public void saveCardInfo(CardInfo cardInfo) {
         //判断修改还是新增
-        if (cardInfo.getInfoId() != null || cardInfo.getInfoId() != 0) {
+        if (cardInfo.getInfoId() != null && cardInfo.getInfoId() != 0) {
             //修改请柬信息
             cardInfoMapper.updateByPrimaryKeySelective(cardInfo);
         } else {

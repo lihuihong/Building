@@ -113,7 +113,7 @@
         //方法级渲染
         table.render({
             elem: '#content'
-            , url: '/cardInfo/index.action'
+            , url: '/cardInfo/list.action'
             , id: 'contentReload'
             , page: true
             , height: 600
@@ -220,13 +220,15 @@
                     , btn: ['确定', '取消'] //按钮
                     , yes: function (index) {
                         var getData = new Object();
-                        getData.id = data.id;
                         $.ajax({
-                            url: '/student/delete',
+                            url: '/cardInfo/deleteCardInfo.json',
                             type: 'post',
-                            data: getData,
+                            data: {
+                                'InfoId':data.infoId
+                            },
                             dataType: 'json',
                             success: function () {
+                                layer.msg("删除成功")
                                 location.reload(true);
                             },
                             error: function () {
@@ -241,9 +243,10 @@
                     type: 2
                     , title: '更改用户数据'
                     , area: ['500px', '500px']
+                    , btn: ['取消'] //按钮
                     , closeBtn: false
                     , btnAlign: 'c'
-                    , content: '/page/from/fromEdit'
+                    , content: '/web/fromEdit.action?id='+data.infoId
                 });
             }
         });
@@ -251,34 +254,15 @@
     // "/web/fromEdit.action?id=" + data.infoId
     function add() {
         layer.open({
-            type: 1
-            , title: '新增用户'
-            , area: ['400px', '360px']
+            type: 2
+            , title: '新增请柬'
+            , area: ['500px', '500px']
             , closeBtn: false
-            , content: '<form class="layui-form" id="add">' +
-                '        <div class="layui-inline" style="padding: 20px; line-height: 24px;">' +
-                '            <label class="layui-form-label">用户姓名:</label>' +
-                '            <div class="layui-input-inline">' +
-                '                <input type="text"  required lay-verify="required" name="username" placeholder="请输入用户姓名"  class="layui-input">' +
-                '            </div>' +
-                '        </div>' +
-                '        <div class="layui-inline" style="padding: 20px; line-height: 24px;">' +
-                '            <label class="layui-form-label">用户密码:</label>' +
-                '            <div class="layui-input-inline">' +
-                '                <input type="text" required   lay-verify="required" name="password" placeholder="请输入用户密码"  class="layui-input">' +
-                '            </div>' +
-                '        </div>' +
-                '        <div class="layui-inline" style="padding-left: 20px">' +
-                '            <label class="layui-form-label">用户状态:</label>' +
-                '            <div class="layui-input-inline">' +
-                '                <input type="text" required   lay-verify="required" name="status" placeholder="请输入用户状态"  class="layui-input">' +
-                '            </div>' +
-                '        </div>' +
-                '    </form>'
-            , btn: ['确认添加', '取消']
+            , content: '/web/fromSend.action'
+            , btn: ['取消']
             , btnAlign: 'c'
             , yes: function (index) {
-                $.ajax({
+                /*$.ajax({
                     url: '/user/add.json',
                     type: 'post',
                     dataType: 'json',
@@ -294,7 +278,7 @@
                     error: function () {
                         alert("添加错误,请重新编写!");
                     }
-                });
+                });*/
                 layer.close(index);
             }
         });

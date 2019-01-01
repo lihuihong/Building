@@ -5,6 +5,8 @@ import com.web.entity.CardTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CardThemeService {
     @Autowired
@@ -50,5 +52,13 @@ public class CardThemeService {
      */
     public void deleteByPrimaryKey(Integer themeId){
         cardThemeMapper.deleteByPrimaryKey(themeId);
+    }
+
+    /**
+     * 获取请柬主题所有
+     * @return
+     */
+    public List<CardTheme> selectAllCardInfo(){
+        return cardThemeMapper.selectAllCardInfo();
     }
 }

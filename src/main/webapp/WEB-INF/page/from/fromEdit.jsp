@@ -13,7 +13,6 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/layui/css/layui.css">
-    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
     <script src="/resources/layui/layui.js"></script>
     <%--
         <script type="text/javascript" src="/resources/layui/layui.all.js" charset="utf-8"></script>
@@ -22,7 +21,7 @@
 <body>
 <form id="edit">
     <div style="padding: 20px; line-height: 24px;">
-        <input type="hidden" name="infoId" value="${data.infoId}">
+        <input type="hidden" name="infoId" value="0">
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 150px;">请柬致辞内容</label>
             <div class="layui-input-inline">
@@ -33,9 +32,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 150px">请柬时间</label>
             <div class="layui-input-inline">
-                <input type="text" name="infoTime" required lay-verify="required" class="layui-input" id="test1"
-                       placeholder="yyyy-MM-dd"
-                       value="<fmt:formatDate value="${data.infoTime}" pattern="yyyy-MM-dd" />">
+                <input type="text" name="infoTime1" required lay-verify="required" class="layui-input" id="test1"
+                       placeholder="yyyy-MM-dd">
             </div>
         </div>
         <div class="layui-form-item">
@@ -63,52 +61,37 @@
 </form>
 <div class="layui-form-item"
      style="text-align: center; margin-top: 30px;">
-    <button class="layui-btn layui-btn-normal">立即提交</button>
-    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    <button class="layui-btn layui-btn-normal" onclick="saveCardInfo()">立即提交</button>
 </div>
+<script src="/resources/jquery/jquery.min.js"></script>
+<script>
+    function saveCardInfo() {
+        var data= $("#edit").serialize();
+        alert(data)
+        $.ajax({
+            url: "/cardInfo/saveCardInfo.json",
+            type: "POST",
+            dataType: "json",
+            data: data,
+            success: function (rtn) {
+                if (rtn.code == "000000") {
+                    layer.msg("修改成功")
+                    window.location.reload();
+                } else {
+                    layer.msg("修改失败")
+                }
+            },
+        });
+    };
+</script>
 <script>
     layui.use(['laydate', 'jquery'], function () {
         var laydate = layui.laydate;
-        //var form = layui.from;
-        var $ = layui.jquery;
-
-        /*//form.render();
-        form.on('submit(formDemo)', function(data) {
-            $.post("/cardInfo/saveCardInfo.json", data.field,
-                function(data) {
-                    if (data.code == "000000") {
-                        layer.msg("修改成功")
-                    }else {
-                        layer.msg("修改失败")
-                    }
-                });
-            return false;
-        });*/
         //常规用法
         laydate.render({
             elem: '#test1'
         });
-        alert(parent.layui.table.data);
-
-        function saveCardInfo() {
-            $.ajax({
-                url: "/cardInfo/saveCardInfo.json",
-                type: "POST",
-                dataType: "json",
-                data: $("#edit").serialize(),
-                success: function (rtn) {
-                    if (rtn.code == "000000") {
-                        layer.msg("修改成功")
-                        window.location.reload();
-                    } else {
-                        layer.msg("修改失败")
-                    }
-                },
-            });
-        };
-
     })
-
 </script>
 </body>
 </html>

@@ -87,4 +87,10 @@
       THEME_TYPE = #{themeType,jdbcType=VARCHAR}
     where THEME_ID = #{themeId,jdbcType=INTEGER}
   </update>
+<!--查询所有请柬主题-->
+    <select id="selectAllCardInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from card_theme
+    </select>
 </mapper>

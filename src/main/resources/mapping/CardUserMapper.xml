@@ -120,4 +120,10 @@
         FROM card_user u
         WHERE u.USER_ID = #{id}
     </select>
+
+    <select id="selectAllCardUser" parameterType="java.lang.Integer" resultMap="User">
+        select
+        <include refid="Base_Column_List"/>
+        from card_user
+    </select>
 </mapper>

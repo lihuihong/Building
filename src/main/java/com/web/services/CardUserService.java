@@ -12,6 +12,7 @@ import sun.misc.BASE64Encoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service("CardUserService")
@@ -146,6 +147,14 @@ public class CardUserService {
      */
     public CardUser selectById(int id) {
         return cardUserMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+    public List<CardUser> selectAllCardUser(){
+        return cardUserMapper.selectAllCardUser();
     }
 
 }

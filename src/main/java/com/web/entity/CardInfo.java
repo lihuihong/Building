@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class CardInfo implements Serializable {
+
     private Integer infoId;
 
     private Integer userId;
@@ -21,7 +22,6 @@ public class CardInfo implements Serializable {
 
     private Integer infoTelAddress;
 
-    private static final long serialVersionUID = 1L;
 
     public Integer getInfoId() {
         return infoId;
@@ -109,7 +109,6 @@ public class CardInfo implements Serializable {
         sb.append(", infoAddress=").append(infoAddress);
         sb.append(", infoNameAddress=").append(infoNameAddress);
         sb.append(", infoTelAddress=").append(infoTelAddress);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }

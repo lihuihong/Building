@@ -3,6 +3,8 @@ package com.web.dao;
 import com.web.entity.CardUser;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 
 public interface CardUserMapper {
     /**
@@ -56,5 +58,7 @@ public interface CardUserMapper {
      * @return
      */
     CardUser selectById(int id);
+
+    List<CardUser> selectAllCardUser();
 
 }
