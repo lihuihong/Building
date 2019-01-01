@@ -31,7 +31,7 @@ public class WebController {
         //获取
         int id = Integer.parseInt(request.getParameter("id"));
         CardInfo cardInfo = cardInfoService.selectByCardInfoId(id);
-        cardInfo.setInfoName(cardThemeService.selectByInfoId(id).getThemeName());
+        cardInfo.setInfoName(cardThemeService.selectByInfoId(Integer.parseInt(cardInfo.getInfoName())).getThemeName());
         cardInfo.setUserName(cardUserService.selectById(cardInfo.getUserId()).getUserUsername());
         map.put("data",cardInfo);
         return "/from/fromList";
@@ -42,7 +42,7 @@ public class WebController {
         //获取
         int id = Integer.parseInt(request.getParameter("id"));
         CardInfo cardInfo = cardInfoService.selectByCardInfoId(id);
-        cardInfo.setInfoName(cardThemeService.selectByInfoId(id).getThemeName());
+        cardInfo.setInfoName(cardThemeService.selectByInfoId(Integer.parseInt(cardInfo.getInfoName())).getThemeName());
         cardInfo.setUserName(cardUserService.selectById(cardInfo.getUserId()).getUserUsername());
         map.put("data",cardInfo);
         return "/from/fromEdit";
