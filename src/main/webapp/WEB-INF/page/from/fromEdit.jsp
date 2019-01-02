@@ -33,7 +33,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 150px">请柬时间</label>
             <div class="layui-input-inline">
-                <input type="text" name="infoTime1"  class="layui-input" id="test1">
+                <input type="text" name="infoTime"  class="layui-input" id="test1">
             </div>
         </div>
         <div class="layui-form-item">
