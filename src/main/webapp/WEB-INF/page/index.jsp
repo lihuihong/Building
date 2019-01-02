@@ -24,14 +24,14 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    欢迎你，管理员
                 </a>
-                <dl class="layui-nav-child">
+                <%--<dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
                     <dd><a href="">安全设置</a></dd>
-                </dl>
+                </dl>--%>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <%--<li class="layui-nav-item"><a href="">退了</a></li>--%>
         </ul>
     </div>
 
@@ -50,9 +50,9 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <button id="add" class="layui-btn" onclick="add()">
+            <%--<button id="add" class="layui-btn" onclick="add()">
                 <i class="layui-icon">&#xe608;</i> 添加
-            </button>
+            </button>--%>
             <table class="layui-hide" lay-filter='demo' id="content"></table>
 
             <script type="text/html" id="barDemo">
@@ -207,9 +207,8 @@
                 layer.open({
                     type: 2
                     , title: '更改用户请柬数据'
-                    , area: ['500px', '500px']
-                    , btn: ['取消'] //按钮
-                    , closeBtn: false
+                    , area: ['500px', '450px']
+                    , closeBtn: 1
                     , btnAlign: 'c'
                     , content: '/web/fromEdit.action?id='+data.infoId
                 });

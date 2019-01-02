@@ -57,7 +57,7 @@
                         layer.msg("登录成功，正在跳转。。。")
                         setTimeout(function () {
                             window.location.href = "${pageContext.request.contextPath}/user/index.action";
-                        },3000)
+                        },2000)
                     } else {
                         layer.msg("账号或密码错误")
                     }

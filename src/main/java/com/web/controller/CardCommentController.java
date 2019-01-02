@@ -37,7 +37,7 @@ public class CardCommentController {
         List<CardComment> list = cardCommentService.list();
         for (CardComment cardComment : list) {
             cardComment.setUserName(cardUserService.selectById(cardComment.getUserId()).getUserUsername());
-            cardComment.setInfoName(cardThemeService.selectByInfoId(cardInfoService.selectByCardInfoId(cardComment.getInfoId()).getInfoId()).getThemeName());
+            cardComment.setInfoName(cardThemeService.selectByInfoId(Integer.parseInt(cardInfoService.selectByCardInfoId(cardComment.getInfoId()).getInfoName())).getThemeName());
         }
         RspDataVo<CardComment> rspDataVo= new RspDataVo<>();
         rspDataVo.setCount(list.size());
