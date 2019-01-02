@@ -16,9 +16,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/cardComment")
 public class CardCommentController {
+
     @Autowired
     private CardCommentService cardCommentService;
-
     @Autowired
     private CardUserService cardUserService;
 
@@ -31,7 +31,7 @@ public class CardCommentController {
      *
      * @return
      */
-    @RequestMapping("/index.action")
+    @RequestMapping("/allCom.json")
     @ResponseBody
     public RspDataVo<CardComment> index(HttpServletRequest request) {
         List<CardComment> list = cardCommentService.list();
@@ -44,6 +44,63 @@ public class CardCommentController {
         rspDataVo.setData(list);
         return rspDataVo;
     }
+
+    /**
+     * 查询请柬的评论
+     *
+     * @return
+     */
+    @RequestMapping("/allComByInfo.json")
+    @ResponseBody
+    public RspDataVo<CardComment> allComByInfo(HttpServletRequest request) {
+
+        Integer id = Integer.parseInt(request.getParameter("infoId"));
+        List<CardComment> list = cardCommentService.selectByInfoId(id);
+        for (CardComment cardComment : list) {
+            cardComment.setUserName(cardUserService.selectById(cardComment.getUserId()).getUserUsername());
+        }
+        RspDataVo<CardComment> rspDataVo= new RspDataVo<>();
+        rspDataVo.setCount(list.size());
+        rspDataVo.setData(list);
+        return rspDataVo;
+    }
+
+    /**
+     * 添加评论
+     *
+     * @return
+     */
+    @RequestMapping("/addComByInfo.action")
+    @ResponseBody
+    public RspVo addComByInfo(HttpServletRequest request) {
+
+        CardUser info = (CardUser) request.getSession().getAttribute("userInfo");
+        RspVo vo = new RspVo();
+        if(info==null){
+            vo.setErrorMsg("未登录");
+            return vo;
+        }
+
+        CardComment comm = new CardComment();
+        comm.setUserId(info.getUserId());
+        comm.setCommentType("0");
+        comm.setCommentContent(request.getParameter("comment"));
+
+        Integer id = Integer.parseInt(request.getParameter("infoId"));
+        comm.setInfoId(id);
+
+
+        if(cardCommentService.insert(comm)){
+            vo.setSuccessMsg("评论成功");
+        }else{
+            vo.setErrorMsg("评论失败");
+        }
+
+
+        return vo;
+    }
+
+
 
     /**
      * 用户评论内容修改

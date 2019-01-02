@@ -102,17 +102,11 @@
                 <c:choose>
                     <c:when test="${sessionScope.get(\"userInfo\") != null}">
                         <div class="user" id="oklogin">
-                            <a href="<%=request.getContextPath()%>/show/user/user.action">
-                                <img src="<%=session.getAttribute("avatar")%>"/>
-                                <li class="layui-nav-item layui-this">
-                                    <a href="/doc/">欢迎您 ：</a>
-                                </li>
-                            </a>
-                            <div class="card-user">
-                                <div class="card-sets">
-                                    <a href="javascript:logout()"  class="l">安全退出</a>
-                                </div>
-                            </div>
+                            <li class="layui-nav-item">欢迎您 ：&nbsp;&nbsp;${sessionScope.get('userInfo').userUsername}
+                            </li>
+                            <li class="layui-nav-item layui-this">
+                                <a href="/cardInfo/goMyCard" style="display: inline;color: #00C0F7">个人中心</a>
+                            </li>
                         </div>
                     </c:when>
                     <c:otherwise>

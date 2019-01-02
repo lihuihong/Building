@@ -1,7 +1,7 @@
 package com.web.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public class CardInfo implements Serializable {
 

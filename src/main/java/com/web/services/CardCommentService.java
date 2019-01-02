@@ -20,9 +20,9 @@ import java.util.Map;
 
 @Service("CardCommentService")
 public class CardCommentService {
+
     @Autowired
     private CardCommentMapper cardCommentMapper;
-
     /**
      * 查询全部评论
      *
@@ -44,6 +44,26 @@ public class CardCommentService {
     public CardComment selectByPrimaryKey(int cardCommentId){
         return cardCommentMapper.selectByPrimaryKey(cardCommentId);
     }
+
+    public List<CardComment> selectByInfoId(Integer infoId){
+        return cardCommentMapper.selectByInfoId(infoId);
+    }
+
+
+    /**
+     * 插入评论
+     * @param cardComment
+     * @return
+     */
+    public boolean insert(CardComment cardComment){
+        int count = cardCommentMapper.insert(cardComment);
+        if(count>0)
+            return true;
+        else
+            return false;
+    }
+
+
 
 
 }

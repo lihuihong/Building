@@ -17,6 +17,15 @@
         from card_comment
         where COMMENT_ID = #{commentId,jdbcType=INTEGER}
     </select>
+
+    <!--根据请柬查询评论-->
+    <select id="selectByInfoId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from card_comment
+        where INFO_ID = #{infoId,jdbcType=INTEGER} and COMMENT_TYPE = '2'
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from card_comment

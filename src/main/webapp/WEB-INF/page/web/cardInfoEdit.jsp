@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
@@ -128,11 +128,11 @@
                 <div class="absro">
                     <img src="/resources/img/bg1.jpg" style="width: 100%" id="bg_img"/>
                     <div class="card_content">
-                        <h3 id="infoPerson"></h3>
-                        <p>时间： <span id="infoTime"></span></p>
-                        <p>酒店： <span id="infoAddress"></span></p>
-                        <p>详细地址:  <span id="infoNameAddress"></span></p>
-                        <p>联系方式： <span id="infoTelAddress"></span></p>
+                        <h3 id="infoPerson">${data.infoPerson}</h3>
+                        <p>时间： <span id="infoTime">${data.infoTime}</span></p>
+                        <p>酒店： <span id="infoAddress">${data.infoAddress}</span></p>
+                        <p>详细地址:  <span id="infoNameAddress">${data.infoNameAddress}</span></p>
+                        <p>联系方式： <span id="infoTelAddress">${data.infoTelAddress}</span></p>
                     </div>
                 </div>
 
@@ -141,12 +141,12 @@
             <div class="layui-col-md3 borde">
                 <form id="edit" class="layui-form">
                     <div style="padding: 20px; line-height: 24px;">
-                        <input type="hidden" name="infoId">
+                        <input type="hidden" name="infoId" value="${data.infoId}">
                         <div class="layui-form-item">
                             <label class="my-layui-form-label">请柬致辞内容</label>
                             <div class="my-layui-input">
                                 <input type="text" name="infoPerson" required lay-verify="required" class="layui-input"
-                                       value="">
+                                       value="${data.infoPerson}">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -154,28 +154,28 @@
                             <div class="my-layui-input">
                                 <input type="text" name="infoTime" required lay-verify="required" class="layui-input" id="test1"
                                        placeholder="yyyy-MM-dd"
-                                       value="">
+                                       value="<fmt:formatDate value="${data.infoTime}" pattern="yyyy-MM-dd" />">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="my-layui-form-label">请柬地址</label>
                             <div class="my-layui-input">
                                 <input type="text" name="infoAddress" required lay-verify="required" class="layui-input"
-                                       value="">
+                                       value="${data.infoAddress}">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="my-layui-form-label" >请柬地址名称</label>
                             <div class="my-layui-input">
                                 <input type="text" name="infoNameAddress" required lay-verify="required" class="layui-input"
-                                       value="">
+                                       value="${data.infoNameAddress}">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="my-layui-form-label">请柬地址电话</label>
                             <div class="my-layui-input">
                                 <input type="text" name="infoTelAddress" required lay-verify="required" class="layui-input"
-                                       value="">
+                                       value="${data.infoTelAddress}">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -221,9 +221,16 @@
         var form = layui.form;
         var $ = layui.jquery;
 
+        var date;
+
         //常规用法
         laydate.render({
             elem: '#test1'
+            ,type: 'datetime'
+            ,done:function(value,date){//value, date, endDate点击日期、清空、现在、确定均会触发。回调返回三个参数，分别代表：生成的值、日期时间对象、结束的日期时间对象
+                date = value;
+                alert(value);
+            }
         });
         form.render();
 
@@ -239,24 +246,26 @@
         });
 
         $('#read').click(function () {
-           $('#infoPerson').text($('input[name="infoPerson"]').val());
-           $('#infoTime').text($('input[name="infoTime"]').val());
-           $('#infoAddress').text($('input[name="infoAddress"]').val());
-           $('#infoNameAddress').text($('input[name="infoNameAddress"]').val());
-           $('#infoName').text($('input[name="infoName"]').val());
+            $('#infoPerson').text($('input[name="infoPerson"]').val());
+            $('#infoTime').text($('input[name="infoTime"]').val());
+            $('#infoAddress').text($('input[name="infoAddress"]').val());
+            $('#infoNameAddress').text($('input[name="infoNameAddress"]').val());
+            $('#infoName').text($('input[name="infoName"]').val());
         });
 
 
-        form.on('submit(demoBtn)', function(data){
+        form.on('submit(demoBtn)', function(){
+
+
+            $('#test1').val(date);
             $.ajax({
                 url: "/cardInfo/saveCardInfo.json",
                 type: "POST",
-                dataType: "json",
                 data: $('#edit').serialize(),
                 success: function (rtn) {
                     if (rtn.code == "000000") {
                         layer.alert("保存成功", {icon: 6},function () {
-                            window.location.href = '/cardInfo/goMyCard';
+                            window.location.reload();
                         });
                     } else {
                         layer.alert("未登录，请先登录", {icon: 2});

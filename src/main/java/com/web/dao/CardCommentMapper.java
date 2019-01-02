@@ -13,6 +13,8 @@ public interface CardCommentMapper {
 
     CardComment selectByPrimaryKey(Integer commentId);
 
+    List<CardComment> selectByInfoId(Integer infoId);
+
     int updateByPrimaryKeySelective(CardComment record);
 
     int updateByPrimaryKey(CardComment record);

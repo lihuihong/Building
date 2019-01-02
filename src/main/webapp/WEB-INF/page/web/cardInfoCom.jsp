@@ -78,6 +78,35 @@
             height: 40px;
             font-size: 20px;
         }
+        .right-comm{
+            line-height: 30px;
+            height: 30px;
+            margin-bottom: 20px;
+        }
+        #comm{
+            padding: 15px;
+        }
+        .left-user{
+            float: left;
+            background: #1e9fff;
+            border-radius: 20px;
+            color: white;
+            padding: 0px 10px;
+            margin-right: 10px;
+        }
+        .left-comment{
+            float: left;
+            border-radius: 20px;
+            background: #8ad6dacf;
+            padding: 0px 20px;
+            margin-left: 20px;
+        }
+        #edit{
+            padding-bottom: 10px;
+            line-height: 30px;
+            height: 30px;
+        }
+
     </style>
 </head>
 <body>
@@ -89,17 +118,11 @@
                 <c:choose>
                     <c:when test="${sessionScope.get(\"userInfo\") != null}">
                         <div class="user" id="oklogin">
-                            <a href="<%=request.getContextPath()%>/show/user/user.action">
-                                <img src="<%=session.getAttribute("avatar")%>"/>
-                                <li class="layui-nav-item layui-this">
-                                    <a href="/doc/">欢迎您 ：</a>
-                                </li>
-                            </a>
-                            <div class="card-user">
-                                <div class="card-sets">
-                                    <a href="javascript:logout()"  class="l">安全退出</a>
-                                </div>
-                            </div>
+                            <li class="layui-nav-item">欢迎您 ：&nbsp;&nbsp;${sessionScope.get('userInfo').userUsername}
+                            </li>
+                            <li class="layui-nav-item layui-this">
+                                <a href="/cardInfo/goMyCard" style="display: inline;color: #00C0F7">个人中心</a>
+                            </li>
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -121,74 +144,28 @@
                 <div class="absro">
                     <img src="/resources/img/bg1.jpg" style="width: 100%" id="bg_img"/>
                     <div class="card_content">
-                        <h3>邀请你来参加我们的婚礼</h3>
-                        <p>时间： <span>2019-01-01 13:54:37</span></p>
-                        <p>酒店： <span>xx大酒店</span></p>
-                        <p>详细地址:  <span>南岸天台冈小学旁</span></p>
-                        <p>联系方式： <span>15223660000</span></p>
+
+                        <h3 id="infoPerson">${data.infoPerson}</h3>
+                        <p>时间： <span id="infoTime"><fmt:formatDate value="${data.infoTime}" pattern="yyyy-MM-dd" /></span></p>
+                        <p>酒店： <span id="infoAddress">${data.infoAddress}</span></p>
+                        <p>详细地址:  <span id="infoNameAddress">${data.infoNameAddress}</span></p>
+                        <p>联系方式： <span id="infoTelAddress">${data.infoTelAddress}</span></p>
                     </div>
                 </div>
 
             </div>
 
             <div class="layui-col-md4 borde">
-                <form id="edit" class="layui-form">
-                    <div style="padding: 20px; line-height: 24px;">
-                        <input type="hidden" name="infoId" value="${data.infoId}">
-                        <div class="layui-form-item">
-                            <label class="my-layui-form-label">请柬致辞内容</label>
-                            <div class="my-layui-input">
-                                <input type="text" name="infoPerson" required lay-verify="required" class="layui-input"
-                                       value="${data.infoPerson}">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="my-layui-form-label">请柬时间</label>
-                            <div class="my-layui-input">
-                                <input type="text" name="infoTime" required lay-verify="required" class="layui-input" id="test1"
-                                       placeholder="yyyy-MM-dd"
-                                       value="<fmt:formatDate value="${data.infoTime}" pattern="yyyy-MM-dd" />">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="my-layui-form-label">请柬地址</label>
-                            <div class="my-layui-input">
-                                <input type="text" name="infoAddress" required lay-verify="required" class="layui-input"
-                                       value="${data.infoAddress}">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="my-layui-form-label" >请柬地址名称</label>
-                            <div class="my-layui-input">
-                                <input type="text" name="infoNameAddress" required lay-verify="required" class="layui-input"
-                                       value="${data.infoNameAddress}">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="my-layui-form-label">请柬地址电话</label>
-                            <div class="my-layui-input">
-                                <input type="text" name="infoTelAddress" required lay-verify="required" class="layui-input"
-                                       value="${data.infoTelAddress}">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="my-layui-form-label" style="width: 90px">请柬主题选择</label>
-                            <div class="layui-input-inline">
-                                <%--<input type="text" name="infoName" required lay-verify="required" class="layui-input"
-                                       value="${cardTheme.themeId}">--%>
-                                <select name="infoName"  lay-filter="filter">
-                                    <option value="2">请选择一个请柬主题</option>
-                                    <c:forEach items="${cardTheme}" var="entity" varStatus="status">
-                                        <option value="${entity.themeId}">${entity.themeName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <div class="layui-form-item"
-                     style="text-align: center; margin-top: 30px;">
-                    <button class="layui-btn layui-btn-normal">立即提交</button>
+                <div id="comm">
+
+                </div>
+
+                <div class="layui-form-inline" style="text-align: center; margin-top: 30px;">
+                    <form id="edit" class="layui-form">
+                        <input type="hidden" id="infoId" name="infoId" value="${data.infoId}">
+                        <input type="text" name="comment" style="height: 35px; border-radius: 20px;width: 250px;padding: 5px 15px;"/>
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="demoBtn">立即评论</button>
+                    </form>
                 </div>
             </div>
 
@@ -208,10 +185,11 @@
 <script src="/resources/layui/layui.js"></script>
 <script>
 
-    layui.use(['laydate', 'jquery','form'], function () {
+    layui.use(['laydate', 'jquery','form','layer'], function () {
         var laydate = layui.laydate;
         var form = layui.form;
         var $ = layui.jquery;
+        var layer = layui.layer;
 
         //常规用法
         laydate.render({
@@ -231,22 +209,51 @@
         });
 
 
-        function saveCardInfo() {
+        $.ajax({
+            url: "/cardComment/allComByInfo.json?infoId="+$('#infoId').val(),
+            type: "get",
+            dataType: "json",
+            success: function (rtn) {
+                if (rtn.code==0) {
+                    var html = '';
+                    $.each(rtn.data, function(commentIndex, comment){
+                        html += '<div class="right-comm"> <div class="left-user">'
+                            + comment.userName +
+                            '</div><div style="float:left">说:</div><div class="left-comment">'
+                            + comment.commentContent
+                            + '</div></div>';
+                    });
+                    $('#comm').html(html);
+
+                    //window.location.reload();
+                } else {
+                    layer.msg("访问失败")
+                }
+            }
+
+        });
+
+        form.on('submit(demoBtn)', function(data){
             $.ajax({
-                url: "/cardInfo/saveCardInfo.json",
+                url: "/cardComment/addComByInfo.action",
                 type: "POST",
                 dataType: "json",
                 data: $("#edit").serialize(),
                 success: function (rtn) {
-                    if (rtn.code == "000000") {
-                        layer.msg("修改成功")
-                        window.location.reload();
+                    if (rtn.code == 0) {
+                        layer.alert("评论成功", {icon: 6},function () {
+                            window.location.reload();
+                        });
                     } else {
-                        layer.msg("修改失败")
+                        layer.alert("未登录，请先登录", {icon: 2},function () {
+                            window.location.href = '/page/web/login';
+                        });
+
                     }
                 },
             });
-        };
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
 
     })
 

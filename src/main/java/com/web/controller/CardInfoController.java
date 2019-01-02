@@ -90,12 +90,16 @@ public class CardInfoController {
 
     /**
      * 保存请柬
-     * @param cardInfo
      */
     @RequestMapping("/saveCardInfo.json")
     @ResponseBody
-    public Result saveCardInfo(CardInfo cardInfo){
-        cardInfoService.saveCardInfo(cardInfo);
+    public Result saveCardInfo(CardInfo info,HttpServletRequest request){
+
+        CardUser user = (CardUser) request.getSession().getAttribute("userInfo");
+
+        info.setUserId(user.getUserId());
+        cardInfoService.saveCardInfo(info);
+
         return Result.success();
     }
 
@@ -104,12 +108,20 @@ public class CardInfoController {
      * @return
      */
     @RequestMapping("/goCardById")
-    public String cardById(@RequestParam("id") int InfoId, Model model){
+    public String cardById(@RequestParam("id") int InfoId, HttpServletRequest request){
 
         CardInfo info = cardInfoService.selectByCardInfoId(InfoId);
 
-        model.addAttribute("cardInfo",info);
-        return "cardInfo";
+        request.setAttribute("data",info);
+
+        CardUser user = (CardUser) request.getSession().getAttribute("userInfo");
+
+        if(user != null && (info.getUserId() == user.getUserId())){
+            return "/web/cardInfoEdit";
+        }else{
+            return "/web/cardInfoCom";
+        }
+
     }
 
     /**
